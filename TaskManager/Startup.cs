@@ -11,6 +11,7 @@ using TaskManager.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Security.Claims;
 
 namespace TaskManager
 {
@@ -35,11 +36,12 @@ namespace TaskManager
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
+            services.Configure<IdentityOptions>(o => o.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson();
             services.AddRazorPages();
 
             // In production, the React files will be served from this directory

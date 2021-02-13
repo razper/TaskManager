@@ -8,5 +8,6 @@ namespace TaskManager.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public ICollection<TodoItem> Todos { get; set; }
     }
 }
